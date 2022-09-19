@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->    
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>    
+    <link href="css/bootstrap.css" rel="stylesheet" media="all">
+    <link href="css/main.css" rel="stylesheet" media="all">
+
+    <title>Cuisine Recipes</title>
+  </head>
+  
+  <body>
+    <div class="row">
+      <div class="col-12">
+        <h2 id="heading">Cuisine Recipes</h2>
+      </div>
+    </div>
+    
+    <div class="navbar">
+      <!--Top Navigation bar-->
+        <nav class="navbar navbar-expand-lg navbar-light navbar-background-color" >
+            <div class="container-fluid">
+             
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarColor03">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link" id="American" aria-current="page" href="#" onclick="getCuisine('American')">American</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="Italian" href="#" onclick="getCuisine('Italian',)">Italian</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="Chinese" href="#" onclick="getCuisine('Chinese')">Chinese</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="Indian" href="#" onclick="getCuisine('Indian')">Indian</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="Korean" href="#" onclick="getCuisine('Korean')">Korean</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="Thai" href="#" onclick="getCuisine('Thai')">Thai</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="French" href="#" onclick="getCuisine('French')">French</a>
+                  </li>
+                </ul>
+                <form class="d-flex">
+                  <input class="form-control me-2" id="searchQuery" type="search" placeholder="Search food or cuisine" aria-label="Search">
+                  <button class="btn btn-outline-primary" onclick="SearchCuisine()" type="button">Search</button>
+                </form>
+              </div>
+            </div>
+          </nav>
+          <!--End Top Navigation bar-->
+
+           
+          <div class="container" style="padding-top:3%;">
+            
+              <!--Show list results per search-->
+              <div class="col-12">
+                <select class="form-select" id="listsPerPage" aria-label="Default select example">                  
+                  <option value="10" selected>Show 10</option>
+                  <option value="20">Show 20</option>
+                  <option value="30">Show 30</option>
+                  <option value="40">Show 40</option>
+                  <option value="50">Show 50</option>
+                </select>
+              </div>
+              <!--End show list results per search-->
+              <div class="row">
+                <div class="col-6"></div>
+                <div class="col-6">
+                  <div id="loadingIcon"><img src="loadingGif.gif" alt="loading...."/></div>
+                </div>
+              <div class="col-12"><br /></div>
+
+              <!--result lists-->
+              <div class="col-12">
+                <div id="food_list"></div>
+              </div> 
+            </div>
+            
+
+             
+             <div class="row">
+                             
+            </div>
+            <!--Popup message-->
+            <div class="modal" id="popupMsg_modal" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">                    
+                    <p><span id="popupErrMsg"></span></p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--End Popup message-->
+
+            <!---Pop up Modal---->    
+              <div class="modal fade" id="exampleModalXl" tabindex="-1" aria-labelledby="exampleModalXlLabel" style="display: none;" aria-modal="true">
+                <div class="modal-dialog modal-xl">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title h4" id="exampleModalXlLabel"><span id="dishName"></span></h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      
+                      <div class="container" style="padding-top:3%;">
+                        <div class="container">
+                            <div class="row">
+                             
+                              <div class="col">
+                                <div id="loadingIcon_modal"><img src="loadingGif.gif" alt="loading...."/></div>
+                                <div id="dishImg"></div>
+                              </div>
+                              <div class="col">
+                                <div class="row">
+            
+                                  <div class="col-6" style="line-height:3.0;"><b>Vegan:</b> <span id="fdDetail_vegan"></span></div>
+                                  <div class="col-6" style="line-height:3.0;"><b>Gluten Free:</b> <span id="fdDetail_glutenFree"></span></div>
+                                  <div class="col-6" style="line-height:3.0;"><b>Dairy Free:</b> <span id="fdDetail_dairyFree"></span></div>                    
+                                  <div class="col-6" style="line-height:3.0;"><b>Health Score:</b> <span id="fdDetail_healthScore"></span></div>
+                                  <div class="col-6" style="line-height:3.0;"><b>Very Healthy:</b> <span id="fdDetail_healthy"></span></div>
+            
+                                  <div class="col-6" style="line-height:3.0;"><b>Preparation Time:</b> <span id="fdDetail_readyInMinutes"></span></div>
+                                  <div class="col-6" style="line-height:3.0;"><b>Servings:</b> <span id="fdDetail_servings"></span></div>
+                                  
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                          <hr /><br />
+            
+                          <div class="row" style="padding-bottom: 12%; width: 100%;">
+                            <div class="col-1"></div>                              
+                            <div class="col-10">
+                              <br />
+                              <div class="accordion" id="accordionPanelsStayOpenExample">
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                      Summary
+                                    </button>
+                                  </h2>
+                                  <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                                    <div class="accordion-body">
+                                      <span id="dishSummary" style="text-align:justify; padding-bottom: 2%;"></span><br />                          
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                      Instruction
+                                    </button>
+                                  </h2>
+                                  <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                                    <div class="accordion-body">
+                                      <span id="dishInstruction" style="text-align:justify"></span>
+                                    </div>
+                                  </div>
+                                </div>                   
+                              </div>
+                            </div>
+                            <div class="col-1"></div>
+                          </div>
+            
+                          
+                        </div>    
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+               <!---End Popup Modal---->
+            
+               <!--Loading icon-->
+               <div class="row">
+                
+               </div>
+               
+               
+
+             
+              
+            </div>            
+          </div>
+    </div>
+
+    <!--Footer-->
+    <footer class="footerBox">
+      <div class="row footer1">
+        <div class="col-12"><br />
+          <h2 id="footer-title">Cuisine Recipes</h2>
+        </div>        
+        <div class="col-6">
+          <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+              <div class="row footerText">
+                <div class="col-12">About Us</div>
+                <div class="col-12">Career</div>            
+                <div class="col-12">Blog</div>
+                <div class="col-12">Recipes</div>
+                <div class="col-12">Contact Us</div>
+              </div>
+            </div>
+            <div class="col-1"></div>            
+          </div>            
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+              <div class="row footerText">
+                <div class="col-12">Terms & Conditions</div>           
+                <div class="col-12">Privacy Policy</div>
+                <div class="col-12"><br /></div>
+                <div class="col-12">              
+                  <i class='fa fa-facebook blue-color'>&emsp;</i>
+                  <i class='fa fa-twitter'>&emsp;</i>
+                  <i class='fa fa-youtube-play'>&emsp;</i>
+                  <i class='fa fa-instagram'></i>
+              </div>            
+              </div>
+            </div>
+            <div class="col-1"></div>            
+          </div>            
+        </div>
+        <hr />       
+      </div>
+    </footer>
+    <!--End footer-->    
+      
+      <script src="js/bootstrap.js"></script>
+      <script src="js/jQuery.js"></script>
+      <script src="js/main.js"></script>
+      
+  </body>
+</html>
+<!-- End document-->

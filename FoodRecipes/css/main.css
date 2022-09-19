@@ -1,0 +1,88 @@
+#heading{
+    font-family: 'Brush Script MT', cursive;
+    font-size: 100px;
+    text-align: center;
+    color:#337ab7;
+    padding-left:1%;
+    padding-right:1%;
+}
+#footer-title{
+    font-family: 'Brush Script MT', cursive;
+    font-size: 50px;
+    text-align: left;
+    color:white;
+    padding-left:1%;
+    padding-right:1%;
+}
+#loadingIcon{
+    text-align:center; display: none;
+}
+.image-card{
+    width: 13rem;
+}
+.footer1{
+    background-color: #1a3c34;
+    padding-bottom: 3%;
+}
+.footer2{
+    background-color: #4f5658;
+    padding-bottom: 3%;color:white;
+}
+.footerBox{
+    padding-left: 11%;
+    padding-right: 11%;
+}
+.footerText{
+    font-size:17px;
+    color:white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.navbar{
+    float:left;
+    padding-left: 10%; 
+    padding-right: 10%; 
+    padding-top:1%; 
+    width: 100%;
+}
+.navbar-background-color{
+    background-color: #1a3c34;
+}
+.linkDeco{
+    text-decoration: none;
+    color:'darkcyan';
+}
+.hypera{
+    color:white;
+}
+.buttonColor {
+    color: black;
+    border-color: white;
+}
+.errMsg{
+    color: red;
+}
+@media only screen and (max-width: 760px) {
+    #heading {
+        font-size: 70px;
+    }
+    .col{
+        flex:content;
+    }
+    .image-card{
+        width: 100%;
+    }
+    #footer-title{
+        font-size: 40px;       
+    }
+    .footerText{
+        font-size: 15px;
+    }
+    .footerBox{
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    .navbar{
+        padding-left: 3%; 
+        padding-right: 3%;    
+    }
+  }
